@@ -1,0 +1,27 @@
+#app
+    transition-group(name="fade" tag="ul")
+        li.postit(v-for="(p,pid) in postits",
+                :key="pid",
+                :style="postitCss(p)",
+                @mousedown="selectId($event,pid)")
+            .text {{p.text}}
+            .colorList
+                .block(v-for="c in colorList",
+                    :style="{ backgroundColor: c.color }",
+                    @click="setColor(pid,c.name)")
+                i.fa.fa-pencil(@click="setText(pid)")   
+                i.fa.fa-trash-o(@click="deletePostit(pid)")             
+
+    ul.datalist
+        .addPostit(@click="addPostit") Add Postit + 
+            //- h1(style="color : white") {{nowId}}
+        li(v-for="(p,pid) in postits")
+            input(v-model="p.text")    
+            .colorList
+                .blockList(v-for="c in colorList",
+                    :style="{ backgroundColor: c.color }",
+                    @click="setColor(pid,c.name)")
+                i.fa.fa-trash-o.deletePostit(@click="deletePostit(pid)")   
+        .deleteAllPostit(@click="deleteAllPostit()") Delete All Postit          
+        //- button(@click="addPostit") +新增便利貼    
+

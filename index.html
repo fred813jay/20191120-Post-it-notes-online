@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>20191113-便利貼</title>
+<link rel="stylesheet" href="./style.css">
+<!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'> -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<div id="app">
+  <transition-group name="fade" tag="ul">
+    <li class="postit" v-for="(p,pid) in postits" :key="pid" :style="postitCss(p)" @mousedown="selectId($event,pid)">
+      <div class="text">{{p.text}}</div>
+      <div class="colorList">
+        <div class="block" v-for="c in colorList" :style="{ backgroundColor: c.color }" @click="setColor(pid,c.name)"></div><i class="fa fa-pencil" @click="setText(pid)">  </i><i class="fa fa-trash-o" @click="deletePostit(pid)">            </i>
+      </div>
+    </li>
+  </transition-group>
+  <ul class="datalist">
+    <div class="addPostit" @click="addPostit">Add Postit + </div>
+    <li v-for="(p,pid) in postits">
+      <input v-model="p.text">
+      <div class="colorList">
+        <div class="blockList" v-for="c in colorList" :style="{ backgroundColor: c.color }" @click="setColor(pid,c.name)"></div><i class="fa fa-trash-o deletePostit" @click="deletePostit(pid)">  </i>
+      </div>
+    </li>
+    <div class="deleteAllPostit" @click="deleteAllPostit()">Delete All Postit          </div>
+  </ul>
+</div>
+
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js'></script>
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase.js"></script>
+<script  src="./script.js"></script>
+
+</body>
+</html>
